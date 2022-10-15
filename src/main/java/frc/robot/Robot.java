@@ -71,15 +71,21 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     switch (m_autoSelected) {
       case kCustomAuto:
-        // Put custom auto code here
+        // Put custom auto code 
         break;
       case kDefaultAuto:
-      default:
-        // Put default auto code here
+      default: 
+        if (m_drivetrain.getLeftDistanceInch() < 325.0) {
+        m_drivetrain.arcadeDrive(0.7, 0.0);
+        } else if (m_drivetrain.getLeftDistanceInch() < 326.5) {
+          m_drivetrain.turnRight();
+        } 
+        else if (m_drivetrain.getLeftDistanceInch() < 400.0) {
+          m_drivetrain.arcadeDrive(0.5, 0.0);
+        }
         break;
     }
   }
-
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {}
@@ -96,7 +102,7 @@ public class Robot extends TimedRobot {
     double turnSpeed = -controller.getRawAxis(0);
 
     m_drivetrain.arcadeDrive(forwardSpeed, turnSpeed);
-  }
+  } 
 
   /** This function is called once when the robot is disabled. */
   @Override
